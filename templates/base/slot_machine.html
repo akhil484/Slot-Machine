@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <style>
+        body{
+            background-color: #FFF5EE;
+        }
+        .col
+		{
+			display: inline-block;
+			width:80px;
+			height: 60px;
+			text-align: center;
+			background-color: black;
+			color:white;
+			margin-top: 2px;
+			padding:20px;
+			padding-top:20px;
+			font-size: 50px;
+		}
+    </style>
+<body>
+    {% for row in grid %}
+	<div>
+		
+		{% for col in row %}
+			<div class="col" data-i={{row}} data-j={{col}}> {{col}}</div>
+		{% endfor %}
+        
+		
+	</div>
+	{% endfor %}
+    <button class="button spin_machine">Play</button>
+
+</body>
+</html>
