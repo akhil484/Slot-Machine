@@ -20,17 +20,57 @@
 		}
     </style>
 <body>
+    <div class="spin-display">
     {% for row in grid %}
 	<div>
 		
 		{% for col in row %}
-			<div class="col" data-i={{row}} data-j={{col}}> {{col}}</div>
+			<div class="col">{{col}}</div>
 		{% endfor %}
         
 		
 	</div>
 	{% endfor %}
+    </div>
+    <div>Current Amount <span class="balance">2000</span></div>
+    <input type="text" class="no_of_lines" placeholder="Mention the number of Lines you want to bet on">
+    <input type="text" class="bet_amount" placeholder="Mention the amount you want to bet on each line">
     <button class="button spin_machine">Play</button>
 
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    $('.spin_machine').click(function(e){
+        var no_of_lines = $('.no_of_lines').val();
+        var bet_amount = $('.bet_amount').val();
+        var balance = $('.balance').text();
+        
+        $.ajax({
+
+            // Our sample url to make request 
+            url: '/app/ajax-spin-machine/',
+            type: "POST",
+            data: {'balance': balance,'no_of_lines': no_of_lines, 'bet_amount': bet_amount, 'csrfmiddlewaretoken': '{{csrf_token}}'},
+            success: function (data) {
+                let x = JSON.parse(data);
+                if(x.success)
+                {
+                    $('.spin-display').html();
+                    $('.spin-display').html(x.html);
+                    $('.balance').text(x.balance);
+                    console.log(x);
+                }
+                else{
+                    console.log(x.msg);
+                }
+                
+            },
+
+            // Error handling 
+            error: function (error) {
+                console.log(`Error ${error}`);
+            }
+        });
+    });
+</script>
 </html>
