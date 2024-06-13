@@ -47,7 +47,6 @@
         
         $.ajax({
 
-            // Our sample url to make request 
             url: '/app/ajax-spin-machine/',
             type: "POST",
             data: {'balance': balance,'no_of_lines': no_of_lines, 'bet_amount': bet_amount, 'csrfmiddlewaretoken': '{{csrf_token}}'},
