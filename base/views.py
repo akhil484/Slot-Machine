@@ -18,7 +18,7 @@ def slot_machine(request):
     account_information_obj = Account_Information.objects.get(user=user)
 
     grid = [['A','B','D'],['7','#','C'],['~','~','~']]
-    return render(request, "base/slot_machine.html", {'grid':grid, 'account_information_obj': account_information_obj})
+    return render(request, "base/slot_machine.html", {'grid':grid, 'wins': account_information_obj.no_of_wins,'account_information_obj': account_information_obj})
 
 def home(request):
     if request.user.is_authenticated:
@@ -97,12 +97,13 @@ def spin_machine(request):
 
         balance = balance - current_bet
         grid = create_grid_of_chars()
-        winning_points = calculate_winning_points(grid, number_of_lines_to_bet)
+        winning_points, wins = calculate_winning_points(grid, number_of_lines_to_bet)
         balance = balance + winning_points
         account_information_obj.current_month_balance = balance
+        account_information_obj.no_of_wins = account_information_obj.no_of_wins + wins
         account_information_obj.save()
         html = ''
-        print(grid)
+        
         for row in grid:
             html +='<div class="row">'
             for col in row:
@@ -112,11 +113,14 @@ def spin_machine(request):
             'success': True, 
             'html': mark_safe(html),
             'winning_points': winning_points,
-            'balance': account_information_obj.current_month_balance
+            'balance': account_information_obj.current_month_balance,
+            'wins': account_information_obj.no_of_wins
             }))
 
 
 def login_view(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/play/')
     if request.POST:
         username = request.POST.get('username', None)
         password = request.POST.get('password', None)

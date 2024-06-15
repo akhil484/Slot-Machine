@@ -34,6 +34,7 @@
 	{% endfor %}
     </div>
     <div>Current Amount <span class="balance">{{account_information_obj.current_month_balance}}</span></div>
+    <div>Overall Wins <span class="overall_wins">{{account_information_obj.no_of_wins}}</span></div>
     <input type="text" class="no_of_lines" placeholder="Mention the number of Lines you want to bet on">
     <input type="text" class="bet_amount" placeholder="Mention the amount you want to bet on each line">
     <button class="button spin_machine">Play</button>
@@ -49,7 +50,7 @@
         
         $.ajax({
 
-            url: '/app/ajax-spin-machine/',
+            url: '/ajax-spin-machine/',
             type: "POST",
             data: {'balance': balance,'no_of_lines': no_of_lines, 'bet_amount': bet_amount, 'csrfmiddlewaretoken': '{{csrf_token}}'},
             success: function (data) {
@@ -59,6 +60,7 @@
                     $('.spin-display').html('');
                     $('.spin-display').html(x.html);
                     $('.balance').text(x.balance);
+                    $('.overall_wins').text(x.wins);
                     console.log(x);
                 }
                 else{
