@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+<div class="modal">
+  
+  <form class="modal-content" id="signup_frm" action="">
+    <div class="container">
+      <h1>Login</h1>
+      
+      <hr>
+      <label for="username"><b>Username</b></label>
+      <input type="text" placeholder="Enter Email" id="username" name="username" required>
+
+
+      <label for="password"><b>Password</b></label>
+      <input type="text" placeholder="Enter Password" id="passwrd" name="password" required>
+
+      <div class="clearfix">
+        <button type="button" class="loginbtn">Login</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+$('.loginbtn').click(function(e){
+    var username = $('#username').val();
+    var password = $('#passwrd').val();
+    
+
+    $.ajax({
+            url: '',
+            type: "POST",
+            data: {'username': username,'password': password, 'csrfmiddlewaretoken': '{{csrf_token}}'},
+            success: function (data) {
+                let x = JSON.parse(data);
+                if(x.success)
+                {
+                    window.location = '/play/';
+                }
+                else{
+                    console.log(x.msg);
+                }
+                
+            },
+
+            // Error handling 
+            error: function (error) {
+                console.log(`Error ${error}`);
+            }
+    });
+});
+
+</script>
+
+</body>
+</html>

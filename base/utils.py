@@ -9,7 +9,7 @@ def create_grid_of_chars():
             char_list.append(key)
     
     random.shuffle(char_list)
-    i = 100
+    i = 1000
     for _ in range(3):
         row = []
         for _ in range(3):
@@ -21,11 +21,14 @@ def create_grid_of_chars():
 
     return grid
 
-def calculate_winning_points(grid):
+def calculate_winning_points(grid, number_of_lines_to_bet):
     score = 0
     for row in grid:
         if row[0] == row[1] == row[2]:
             score = score + char_values[row[0]]
+            number_of_lines_to_bet = number_of_lines_to_bet - 1
+        if number_of_lines_to_bet <= 0:
+            break
 
     return score
 

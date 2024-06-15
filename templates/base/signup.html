@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+<div class="modal">
+  
+  <form class="modal-content" id="signup_frm" action="">
+    <div class="container">
+      <h1>Sign Up</h1>
+      <p>Please fill in this form to create an account.</p>
+      <hr>
+      <label for="email"><b>Email</b></label>
+      <input type="text" placeholder="Enter Email" id="email_id" name="email" required>
+
+      
+
+      <label for="first_name"><b>First Name</b></label>
+      <input type="text" placeholder="Enter First Name" id="first_name" name="first_name" required>
+
+      <label for="last_name"><b>Last Name</b></label>
+      <input type="text" placeholder="Enter Last Name" id="last_name" name="last_name" required>
+
+      <label for="password"><b>Password</b></label>
+      <input type="text" placeholder="Enter Password" id="passwrd" name="password" required>
+
+      <div class="clearfix">
+        <button type="button" class="signupbtn">Sign Up</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+$('.signupbtn').click(function(e){
+    var emailId = $('#email_id').val();
+    var password = $('#passwrd').val();
+    var first_name = $('#first_name').val();
+    var last_name = $('#last_name').val();
+
+    $.ajax({
+            url: '',
+            type: "POST",
+            data: {'email_id': emailId,'password': password, 'first_name': first_name, 'last_name':last_name,'csrfmiddlewaretoken': '{{csrf_token}}'},
+            success: function (data) {
+                let x = JSON.parse(data);
+                if(x.success)
+                {
+                    window.location = '/play/';
+                }
+                else{
+                    console.log(x.msg);
+                }
+                
+            },
+
+            // Error handling 
+            error: function (error) {
+                console.log(`Error ${error}`);
+            }
+    });
+});
+
+</script>
+
+</body>
+</html>

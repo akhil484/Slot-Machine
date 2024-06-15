@@ -5,14 +5,15 @@
         body{
             background-color: #FFF5EE;
         }
+        
         .col
 		{
 			display: inline-block;
 			width:80px;
 			height: 60px;
 			text-align: center;
-			background-color: black;
-			color:white;
+			background-color: rgba(52, 96, 51, 1);
+			color: #e9c866;
 			margin-top: 2px;
 			padding:20px;
 			padding-top:20px;
@@ -22,7 +23,7 @@
 <body>
     <div class="spin-display">
     {% for row in grid %}
-	<div>
+	<div class="row">
 		
 		{% for col in row %}
 			<div class="col">{{col}}</div>
@@ -32,10 +33,11 @@
 	</div>
 	{% endfor %}
     </div>
-    <div>Current Amount <span class="balance">2000</span></div>
+    <div>Current Amount <span class="balance">{{account_information_obj.current_month_balance}}</span></div>
     <input type="text" class="no_of_lines" placeholder="Mention the number of Lines you want to bet on">
     <input type="text" class="bet_amount" placeholder="Mention the amount you want to bet on each line">
     <button class="button spin_machine">Play</button>
+    <a href="/logout">Logout</a>
 
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -54,7 +56,7 @@
                 let x = JSON.parse(data);
                 if(x.success)
                 {
-                    $('.spin-display').html();
+                    $('.spin-display').html('');
                     $('.spin-display').html(x.html);
                     $('.balance').text(x.balance);
                     console.log(x);
