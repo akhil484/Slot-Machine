@@ -1,3 +1,25 @@
+body{
+    background-color: #FFF5EE;
+}
+.row{
+    display: flex;
+}
+.col
+{
+    display: inline-block;
+    width:80px;
+    height: 60px;
+    text-align: center;
+    background-color: rgba(52, 96, 51, 1);
+    color: #e9c866;
+    margin-top: 2px;
+    margin-right: 3px;
+    padding:20px;
+    padding-top:20px;
+    font-size: 50px;
+    font-family: 'Courier New';
+}
+
 #logout_btn {
     display: block;
     width: 130px;
@@ -18,16 +40,92 @@
     justify-content: center;
     align-items: center;
     height: 85vh;
+    z-index: 1;
 }
 
 .error_modal{
-    max-width: 452px;
+    width: 500px;
     display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: wheat;
+    background-color: #f7ead1;
     height: 122px;
-    filter: blur(8px);
-  -webkit-filter: blur(8px);
+    margin-left: 365px;
+    position: absolute;
+    z-index: 2;
+    margin-top: 200px;
+    font-family: 'Courier New';
+    text-align: center;
+}
+
+
+.close_modal{
+    display: block;
+    width: 130px;
+    height: 30px;
+    float: right;
+    background-color: #958e5f;
+    margin-right: 20px;
+    text-decoration: none;
+    text-align: center;
+    color: white;
+    padding-top: 10px;
+    border-radius: 20px;
+}
+
+.blur {
+    filter: blur(5px); /* Apply blur effect */
+}
+
+.inp_txt{
+    margin-top: 10px;
+    font-family: 'Courier New';
+    width: 230px;
+    text-align: center;
+}
+
+.spin_machine{
+    display: block;
+    width: 130px;
+    height: 30px;
+    float: right;
+    background-color: #958e5f;
+    margin-right: 20px;
+    margin-top: 10px;
+    text-decoration: none;
+    text-align: center;
+    color: white;
+    padding-top: 10px;
+    border-radius: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    margin-bottom: 10px;
+  }
+
+td{
+  border: 1px solid #000000;
+  text-align: center;
+}
+td,
+th {
+    font-family: 'Courier New';
+  padding: 10px;
+}
+
+span.balance {
+    font-family: 'Courier New';
+    color: #1e9b68;
+}
+
+.inp_txt::placeholder {
+    font-family: 'Courier New';
+}
+
+
+span.overall_wins {
+    font-family: 'Courier New';
+    color: #1e9b68;
 }

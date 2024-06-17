@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from base.models import Account_Information
+from datetime import datetime
 
 
 @login_required
@@ -15,7 +16,16 @@ def slot_machine(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
     user = request.user
-    account_information_obj = Account_Information.objects.get(user=user)
+    try:
+        account_information_obj = Account_Information.objects.get(user=user)
+    except:
+        account_information_obj = None
+        
+    current_month = datetime.now().month
+    last_login_month = account_information_obj.user.last_login.month
+    if last_login_month!=current_month and account_information_obj:
+        account_information_obj.current_month_balance = 5000
+        account_information_obj.save()
 
     grid = [['A','B','D'],['7','#','C'],['~','~','~']]
     return render(request, "base/slot_machine.html", {'grid':grid, 'wins': account_information_obj.no_of_wins,'account_information_obj': account_information_obj})
@@ -33,8 +43,7 @@ def sign_up(request):
         password = request.POST.get('password', None)
         first_name = request.POST.get('first_name', None)
         last_name = request.POST.get('last_name', None)
-        print(password)
-        print(len(password))
+        
         
         try:
             usr = User.objects.get(email=email)

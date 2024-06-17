@@ -3,28 +3,7 @@
     <head>
         <link href="/static/base/css/slot_machine_page.css" rel="stylesheet">
     </head>
-    <style>
-        body{
-            background-color: #FFF5EE;
-        }
-        .row{
-            display: flex;
-        }
-        .col
-		{
-			display: inline-block;
-			width:80px;
-			height: 60px;
-			text-align: center;
-			background-color: rgba(52, 96, 51, 1);
-			color: #e9c866;
-			margin-top: 2px;
-            margin-right: 3px;
-			padding:20px;
-			padding-top:20px;
-			font-size: 50px;
-		}
-    </style>
+    
 <body>
     <div class="error_modal">
         <p class="error_msg">This is a placeholder for modal
@@ -32,11 +11,22 @@
         <a href="javascript:void(0);" class="close_modal">Close</a>
     </div>
 
-    <div>
+    <div id="left_logout">
         <a href="/logout" id="logout_btn">Logout</a>
     </div>
     <div class="grid-container">
+        <table id="students">
+            <tr>
+              <td>Current Points for the Month</td><td> 
+              <span class="balance">{{account_information_obj.current_month_balance}}</span></td>
+              
+            </tr>
+            <tr>
+                <td>Overall_wins</td><td><span class="overall_wins">{{account_information_obj.no_of_wins}}</span></td>
+                
+              </tr>
         
+          </table>
     <div class="spin-display">
     {% for row in grid %}
 	<div class="row">
@@ -49,21 +39,23 @@
 	</div>
 	{% endfor %}
     </div>
-    <div>Current Amount <span class="balance">{{account_information_obj.current_month_balance}}</span></div>
-    <div>Overall Wins <span class="overall_wins">{{account_information_obj.no_of_wins}}</span></div>
-    <input type="text" class="no_of_lines" placeholder="Mention the number of Lines you want to bet on">
-    <input type="text" class="bet_amount" placeholder="Mention the amount you want to bet on each line">
-    <button class="button spin_machine">Play</button>
+
+    <input type="text" class="no_of_lines inp_txt" placeholder="Number of Lines to bet on">
+    <input type="text" class="bet_amount inp_txt" placeholder="Points to bet on each line">
+    <a href="" class="button spin_machine">Play</a>
     </div>
 
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
     $('.close_modal').click(function(e){
-        $('#error_modal').css('display', 'none');
+        $('.error_modal').css('display', 'none');
+        $('.grid-container').removeClass('blur');
+        $('#left_logout').removeClass('blur');
     });
 
     $('.spin_machine').click(function(e){
+        e.preventDefault()
         var no_of_lines = $('.no_of_lines').val();
         var bet_amount = $('.bet_amount').val();
         var balance = $('.balance').text();
@@ -85,8 +77,9 @@
                 }
                 else{
                     $('.error_msg').text(x.msg);
-                    console.log($('#error_modal').css('display'));
-                    $('#error_modal').css('display', 'flex');
+                    $('.grid-container').addClass('blur');
+                    $('#left_logout').addClass('blur');
+                    $('.error_modal').css('display', 'flex');
                 }
                 
             },
