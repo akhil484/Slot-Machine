@@ -1,32 +1,40 @@
 <!DOCTYPE html>
 <html>
-
+    <head>
+        <link href="/static/base/css/login.css" rel="stylesheet">
+    </head>
 <body>
 
-<div class="modal">
+
   
-  <form class="modal-content" id="signup_frm" action="">
-    <div class="container">
-      <h1>Login</h1>
-      
-      <hr>
-      <label for="username"><b>Username</b></label>
-      <input type="text" placeholder="Enter Email" id="username" name="username" required>
+  
+<div class="container">
+    <div class="login-box">
+    
+        <form class="modal-content" id="signup_frm" action="">
+            <div><img src="/static/base/images/login-bg.png"></div>
+            <div class="text-inputs">
+                <input type="text" placeholder="Enter Email" id="username" class="inp_txt" name="username" required>
+                <input type="text" placeholder="Enter Password" id="passwrd" name="password" class="inp_txt" required>
+            </div>
 
-
-      <label for="password"><b>Password</b></label>
-      <input type="text" placeholder="Enter Password" id="passwrd" name="password" required>
-
-      <div class="clearfix">
-        <button type="button" class="loginbtn">Login</button>
-      </div>
+            <div class="clearfix">
+                <a href="" class="loginbtn">Login</a>
+            </div>
+        </form>
     </div>
-  </form>
+    <div>
+        <p class="error_msg"></p>
+    </div>
 </div>
+
+  
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
 $('.loginbtn').click(function(e){
+    e.preventDefault();
     var username = $('#username').val();
     var password = $('#passwrd').val();
     
@@ -39,10 +47,11 @@ $('.loginbtn').click(function(e){
                 let x = JSON.parse(data);
                 if(x.success)
                 {
+                    $('.error_msg').text('');
                     window.location = '/play/';
                 }
                 else{
-                    console.log(x.msg);
+                    $('.error_msg').text(x.msg);
                 }
                 
             },

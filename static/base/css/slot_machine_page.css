@@ -1,0 +1,33 @@
+#logout_btn {
+    display: block;
+    width: 130px;
+    height: 30px;
+    float: right;
+    background-color: #958e5f;
+    margin-right: 20px;
+    text-decoration: none;
+    text-align: center;
+    color: white;
+    padding-top: 10px;
+    border-radius: 20px;
+}
+
+.grid-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 85vh;
+}
+
+.error_modal{
+    max-width: 452px;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: wheat;
+    height: 122px;
+    filter: blur(8px);
+  -webkit-filter: blur(8px);
+}

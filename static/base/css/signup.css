@@ -1,0 +1,58 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 85vh;
+}
+
+.signup-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    height: 280px;
+    background-color: #899d4e;
+    border-radius: 15px;
+    
+}
+
+.signupbtn {
+    display: inline-block;
+    height: 32px;
+    width: 135px;
+    border: 1px;
+    border-radius: 10px;
+    background: white;
+    text-align: center;
+    padding-top: 14px;
+    text-decoration: none;
+    color: #899d4e;
+    font-family: 'Courier New';
+    margin-left: 84px;
+    margin-top: 27px;
+}
+
+.inp_txt {
+    background-color: #899d4e;
+    outline: none;
+    border: none;
+    width: 295px;
+    margin-top: 24px;
+    color: white;
+    text-align: center;
+    font-family: 'Courier New';
+}
+
+.inp_txt::placeholder {
+    text-align: center;
+    color: white;
+    font-family: 'Courier New';
+}
+
+.error_msg{
+    color: red;
+    font-family: 'Courier New';
+}
+

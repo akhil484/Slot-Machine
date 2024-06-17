@@ -1,0 +1,48 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 85vh;
+}
+
+#slot_img {
+    width: 130px;
+    margin-bottom: -13px;
+}
+.login_signup_btn{
+    display: flex;
+    column-gap: 10px;
+}
+
+#tagline{
+    font-family:'Courier New';
+}
+
+.login_btn {
+    display: inline-block;
+    height: 32px;
+    width: 105px;
+    border: 1px;
+    border-radius: 10px;
+    background: #d5a244;
+    text-align: center;
+    padding-top: 14px;
+    text-decoration: none;
+    color: white;
+    font-family: 'Courier New';
+}
+
+.sign_up_btn {
+    display: inline-block;
+    height: 32px;
+    width: 105px;
+    border: 1px;
+    border-radius: 10px;
+    background: #899d4e;
+    text-align: center;
+    padding-top: 14px;
+    text-decoration: none;
+    color: white;
+    font-family:'Courier New';
+}

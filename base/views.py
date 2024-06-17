@@ -129,7 +129,7 @@ def login_view(request):
             login(request, user)
             return HttpResponse(json.dumps({'success': True}))
         else:
-            return HttpResponse(json.dumps({'success': False}))
+            return HttpResponse(json.dumps({'success': False, 'msg':'Please user correct Email and Password'}))
     return render(request, "base/login.html")
 
 

@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html>
-    <head></head>
+    <head>
+        <link href="/static/base/css/slot_machine_page.css" rel="stylesheet">
+    </head>
     <style>
         body{
             background-color: #FFF5EE;
         }
-        
+        .row{
+            display: flex;
+        }
         .col
 		{
 			display: inline-block;
@@ -15,12 +19,24 @@
 			background-color: rgba(52, 96, 51, 1);
 			color: #e9c866;
 			margin-top: 2px;
+            margin-right: 3px;
 			padding:20px;
 			padding-top:20px;
 			font-size: 50px;
 		}
     </style>
 <body>
+    <div class="error_modal">
+        <p class="error_msg">This is a placeholder for modal
+        </p>
+        <a href="javascript:void(0);" class="close_modal">Close</a>
+    </div>
+
+    <div>
+        <a href="/logout" id="logout_btn">Logout</a>
+    </div>
+    <div class="grid-container">
+        
     <div class="spin-display">
     {% for row in grid %}
 	<div class="row">
@@ -38,11 +54,15 @@
     <input type="text" class="no_of_lines" placeholder="Mention the number of Lines you want to bet on">
     <input type="text" class="bet_amount" placeholder="Mention the amount you want to bet on each line">
     <button class="button spin_machine">Play</button>
-    <a href="/logout">Logout</a>
+    </div>
 
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
+    $('.close_modal').click(function(e){
+        $('#error_modal').css('display', 'none');
+    });
+
     $('.spin_machine').click(function(e){
         var no_of_lines = $('.no_of_lines').val();
         var bet_amount = $('.bet_amount').val();
@@ -64,7 +84,9 @@
                     console.log(x);
                 }
                 else{
-                    console.log(x.msg);
+                    $('.error_msg').text(x.msg);
+                    console.log($('#error_modal').css('display'));
+                    $('#error_modal').css('display', 'flex');
                 }
                 
             },
