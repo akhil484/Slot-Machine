@@ -21,12 +21,12 @@ def create_grid_of_chars():
 
     return grid
 
-def calculate_winning_points(grid, number_of_lines_to_bet):
+def calculate_winning_points(grid, number_of_lines_to_bet, amount_per_line):
     score = 0
     wins = 0
     for row in grid:
         if row[0] == row[1] == row[2]:
-            score = score + char_values[row[0]]
+            score = score + (char_values[row[0]]*amount_per_line)
             number_of_lines_to_bet = number_of_lines_to_bet - 1
             wins = wins + 1
         if number_of_lines_to_bet <= 0:

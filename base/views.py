@@ -106,7 +106,7 @@ def spin_machine(request):
 
         balance = balance - current_bet
         grid = create_grid_of_chars()
-        winning_points, wins = calculate_winning_points(grid, number_of_lines_to_bet)
+        winning_points, wins = calculate_winning_points(grid, number_of_lines_to_bet, amount_per_line)
         balance = balance + winning_points
         account_information_obj.current_month_balance = balance
         account_information_obj.no_of_wins = account_information_obj.no_of_wins + wins
@@ -115,9 +115,12 @@ def spin_machine(request):
         
         for row in grid:
             html +='<div class="row">'
+            counter = 1
             for col in row:
-                html += '<div class="col">'+col+'</div>'
+                html += ('<div class="col"><span class="char_num%s">'+col+'</span></div>')%(counter)
+                counter += 1
             html +='</div>'
+            
         return HttpResponse(json.dumps({
             'success': True, 
             'html': mark_safe(html),

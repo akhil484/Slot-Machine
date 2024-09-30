@@ -12,27 +12,29 @@
     </div>
 
     <div id="left_logout">
-        <a href="/logout" id="logout_btn">Logout</a>
+        
+        <div class="balance_container">
+            <img src="/static/base/images/winner.png/" width="30" height="30" />
+            <span class="overall_wins">{{account_information_obj.no_of_wins}}</span>
+            <p class="hover-win">Overall Successful Bets</p>
+        </div>
+
+        <div class="right">
+            <img src="/static/base/images/coin.png/" width="30" height="30" />
+            <span class="balance">{{account_information_obj.current_month_balance}}</span>
+            <p class="hover-text">Remaining tokens in your account</p>
+            
+            <a href="/logout" id="logout_btn">Logout</a>
+        </div>
+            
     </div>
     <div class="grid-container">
-        <table id="students">
-            <tr>
-              <td>Current Points for the Month</td><td> 
-              <span class="balance">{{account_information_obj.current_month_balance}}</span></td>
-              
-            </tr>
-            <tr>
-                <td>Overall_wins</td><td><span class="overall_wins">{{account_information_obj.no_of_wins}}</span></td>
-                
-              </tr>
-        
-          </table>
     <div class="spin-display">
     {% for row in grid %}
 	<div class="row">
 		
 		{% for col in row %}
-			<div class="col">{{col}}</div>
+			<div class="col"><span class="char_num{{forloop.counter}}">{{col}}</span></div>
 		{% endfor %}
         
 		
@@ -42,23 +44,60 @@
 
     <input type="text" class="no_of_lines inp_txt" placeholder="Number of Lines to bet on">
     <input type="text" class="bet_amount inp_txt" placeholder="Points to bet on each line">
-    <a href="" class="button spin_machine">Play</a>
+    <a href="" class="button spin_machine" id="playButton">Play</a>
     </div>
 
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
+    $( document ).ready(function() {
     $('.close_modal').click(function(e){
         $('.error_modal').css('display', 'none');
         $('.grid-container').removeClass('blur');
         $('#left_logout').removeClass('blur');
     });
 
+
+    let interval = null;
+
+        
+        function processWithDelay(x) {
+
+            // Set up interval to do something every second during the delay
+            interval = setInterval(() => {
+                chars_arr = ['A', 'B', 'C','D','#','$','7','~','*','>','<','?'];
+                let currentNumber1 = Math.floor(Math.random() * 10);
+                let currentNumber2 = Math.floor(Math.random() * 10);
+                let currentNumber3 = Math.floor(Math.random() * 10);
+                $('.char_num1').text(chars_arr[currentNumber1]);
+                $('.char_num2').text(chars_arr[currentNumber2]);
+                $('.char_num3').text(chars_arr[currentNumber3]);
+            }, 100); 
+
+            setTimeout(() => {
+                clearInterval(interval); 
+                nextStep(x);
+            }, 3000);
+        }
+
+        function nextStep(x)
+        {
+            $('.spin-display').html('');
+            $('.spin-display').html(x.html);
+            $('.balance').text(x.balance);
+            $('.overall_wins').text(x.wins);
+            const playButton = document.getElementById('playButton');
+            playButton.classList.remove('disabled');
+        }
+
     $('.spin_machine').click(function(e){
-        e.preventDefault()
+        e.preventDefault();
+        const playButton = document.getElementById('playButton');
+        playButton.classList.add('disabled');
         var no_of_lines = $('.no_of_lines').val();
         var bet_amount = $('.bet_amount').val();
         var balance = $('.balance').text();
+
         
         $.ajax({
 
@@ -69,17 +108,15 @@
                 let x = JSON.parse(data);
                 if(x.success)
                 {
-                    $('.spin-display').html('');
-                    $('.spin-display').html(x.html);
-                    $('.balance').text(x.balance);
-                    $('.overall_wins').text(x.wins);
-                    console.log(x);
+
+                    processWithDelay(x);
                 }
                 else{
                     $('.error_msg').text(x.msg);
                     $('.grid-container').addClass('blur');
                     $('#left_logout').addClass('blur');
                     $('.error_modal').css('display', 'flex');
+                    playButton.classList.remove('disabled');
                 }
                 
             },
@@ -90,5 +127,6 @@
             }
         });
     });
+});
 </script>
 </html>
